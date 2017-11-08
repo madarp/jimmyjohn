@@ -1,0 +1,26 @@
+<annotation>
+	<folder>jimmy_johns</folder>
+	<filename>Devtown South Lot_20171027_131030_2.jpg</filename>
+	<path>C:\Users\exacqu\Documents\GitHub\jimmyjohn\dataset\images\jimmy_johns\Devtown South Lot_20171027_131030_2.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1911</width>
+		<height>1080</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>jimmy_johns</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1486</xmin>
+			<ymin>212</ymin>
+			<xmax>1573</xmax>
+			<ymax>257</ymax>
+		</bndbox>
+	</object>
+</annotation>

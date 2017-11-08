@@ -1,0 +1,26 @@
+<annotation>
+	<folder>fedex_truck</folder>
+	<filename>Devtown South Lot_20171103_102351_4.jpg</filename>
+	<path>C:\Users\exacqu\Documents\GitHub\jimmyjohn\dataset\images\fedex_truck\Devtown South Lot_20171103_102351_4.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1911</width>
+		<height>1080</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>fedex_truck</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>686</xmin>
+			<ymin>35</ymin>
+			<xmax>1645</xmax>
+			<ymax>678</ymax>
+		</bndbox>
+	</object>
+</annotation>
