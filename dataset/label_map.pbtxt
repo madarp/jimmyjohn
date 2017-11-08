@@ -1,0 +1,17 @@
+item {
+  id: 1
+  name: 'jimmy_johns'
+  display_name: 'Jimmy Johns'
+}
+
+item {
+  id: 2
+  name: 'fedex_truck'
+  display_name: 'FedEx Truck'
+}
+
+item {
+  id: 3
+  name: 'ups_truck'
+  display_name: 'UPS Truck'
+}
