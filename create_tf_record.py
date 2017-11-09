@@ -36,6 +36,8 @@ from lxml import etree
 import PIL.Image
 import tensorflow as tf
 
+# add your tensorflow/models/research directory as a content root.
+# https://github.com/tensorflow/models/tree/master/research
 from object_detection.utils import dataset_util
 from object_detection.utils import label_map_util
 
