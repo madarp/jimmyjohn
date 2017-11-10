@@ -13,7 +13,8 @@
 # limitations under the License.
 # ==============================================================================
 
-r"""Convert the Oxford pet dataset to TFRecord for object_detection.
+r"""
+Convert the Oxford pet dataset to TFRecord for object_detection.
 
 See: O. M. Parkhi, A. Vedaldi, A. Zisserman, C. V. Jawahar
      Cats and Dogs
@@ -21,8 +22,23 @@ See: O. M. Parkhi, A. Vedaldi, A. Zisserman, C. V. Jawahar
      http://www.robots.ox.ac.uk/~vgg/data/pets/
 
 Example usage:
-    ./create_pet_tf_record --data_dir=/home/user/pet \
-        --output_dir=/home/user/pet/output
+    ./create_pet_tf_record --data_dir=/home/user/pet --output_dir=/home/user/pet/output
+
+The Tensorflow Object Detection API uses Protobufs to configure model and training parameters. Before the framework
+can be used, the Protobuf libraries must be compiled. This should be done by running the following command from the
+tensorflow/models/research/ directory:
+
+    protoc object_detection/protos/*.proto --python_out=.
+
+The 'protoc' utility is a binary utility that is platform dependent, and not included in the repository.
+To get a precompiled version of this utility for your platform, visit https://github.com/google/protobuf/releases
+and select a binary that matches your platform, e.g.
+    protoc-3.4.0-linux-x86_32.zip
+    protoc-3.4.0-linux-x86_64.zip
+    protoc-3.4.0-osx-x86_32.zip
+    protoc-3.4.0-osx-x86_64.zip
+    protoc-3.4.0-win32.zip
+
 """
 
 import hashlib
@@ -36,7 +52,7 @@ from lxml import etree
 import PIL.Image
 import tensorflow as tf
 
-# add your tensorflow/models/research directory as a content root.
+# add your cloned tensorflow/models/research directory as a content root, or to PYTHONPATH.
 # https://github.com/tensorflow/models/tree/master/research
 from object_detection.utils import dataset_util
 from object_detection.utils import label_map_util
