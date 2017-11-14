@@ -183,24 +183,22 @@ def get_sample_list(annotations_dir, images_dir):
             p = os.path.join(annotations_dir, filename)
             with open(p, 'rt') as f:
                 xml = f.read()
-                ann = xmltodict.parse(xml)['annotation']
+            ann = xmltodict.parse(xml)['annotation']
+            jpg_file = os.path.join(images_dir, ann['folder'], ann['filename'])
+            if os.path.exists(jpg_file):
                 # The <path> element needs to be replaced. xml may have been from a different host.
-                jpg_file = os.path.join(images_dir, ann['folder'], ann['filename'])
-                if os.path.exists(jpg_file):
-                    ann['path'] = jpg_file
-                    obj = ann['object']
-                    # There may be multiple objects defined (class ids with bounding boxes)
-                    # In both cases, insert the class_id (int) of the associated label map item.
-                    if not isinstance(obj, list):
-                        class_name = obj['name']
-                        obj['class_id'] = int(label_map_dict[class_name])
-                    else:
-                        for o in obj:
-                            class_name = o['name']
-                            o['class_id'] = int(label_map_dict[class_name])
-
-                    samples.append(ann)
-                    logger.debug('Matched sample {}: {}'.format(len(samples), filename))
+                # We are not editing the original xml file, just the dict from the parsed result.
+                ann['path'] = jpg_file
+                # There may be multiple objects defined (class ids with bounding boxes)
+                objects = ann['object']
+                if not isinstance(objects, list):
+                    objects = [objects, ]
+                # Insert the class_id (int) of the associated label map item.
+                for obj in objects:
+                    class_name = obj['name']
+                    obj['class_id'] = int(label_map_dict[class_name])
+                samples.append(ann)
+                logger.debug('Matched sample {}: {}'.format(len(samples), filename))
     return samples
 
 
