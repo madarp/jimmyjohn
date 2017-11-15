@@ -9,3 +9,10 @@ Images were acquired from a surveillance video recorder.  Annotations (labels, b
 - Jimmy Johns
 - FedEx truck
 - UPS truck
+
+Tensorflow supports model training data to use [TFRecord](https://www.tensorflow.org/versions/r0.12/api_docs/python/python_io/#tfrecords_format_details) format.  So, we have to use the `create_tf_record.py` script to create these.
+The script will iterate over the entire images dataset and partition 70% of the images as a training set `train.record`, and 30% as an evaluation set `eval.record`.  These files contain binary jpeg images along with their object class labels
+ and bounding box annotations, in serialized [google protobuf](https://developers.google.com/protocol-buffers/) format.
+
+# Training the model
+ 
