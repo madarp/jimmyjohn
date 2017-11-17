@@ -19,4 +19,5 @@ The script will iterate over the entire images dataset and partition 70% of the 
  and bounding box annotations, in serialized [google protobuf](https://developers.google.com/protocol-buffers/) format.
 
 # Training the model
+The first model selected for object detection is [ssd_inception_v2_coco](http://download.tensorflow.org/models/object_detection/ssd_inception_v2_coco_2017_11_08.tar.gz) from the tensorflow model zoo.
  

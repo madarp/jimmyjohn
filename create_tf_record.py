@@ -159,7 +159,7 @@ def create_tf_record(output_filename, samples):
     logger.info('Creating TF record for %s', output_filename)
     for idx, sample in enumerate(samples):
         if idx % 10 == 0:
-            logging.debug('Processing image %d of %d', idx, len(samples))
+            logger.debug('Processing image %d of %d', idx, len(samples))
         tf_example = dict_to_tf_example(sample)
         writer.write(tf_example.SerializeToString())
     writer.close()
