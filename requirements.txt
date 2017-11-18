@@ -2,3 +2,4 @@ tensorflow
 lxml
 pillow
 xmltodict
+matplotlib
