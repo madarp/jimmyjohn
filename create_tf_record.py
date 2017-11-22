@@ -46,13 +46,13 @@ import datetime
 import imghdr
 import logging
 import os
+import sys
 import random
 import tensorflow as tf
 
 # add your cloned tensorflow/models/research directory as a content root, or to PYTHONPATH.
 # https://github.com/tensorflow/models/tree/master/research
-from object_detection.utils import dataset_util
-from object_detection.utils import label_map_util
+
 
 flags = tf.app.flags
 flags.DEFINE_string('data_dir', r'dataset', 'Root directory to raw dataset.')
@@ -126,6 +126,8 @@ def dict_to_tf_example(data, ignore_difficult_instances=False):
         class_text.append(cls_name.encode('utf8'))
         class_labels.append(cls_id)
 
+    from object_detection.utils import dataset_util
+
     example = tf.train.Example(features=tf.train.Features(feature={
         'image/height': dataset_util.int64_feature(height),
         'image/width': dataset_util.int64_feature(width),
@@ -173,6 +175,7 @@ def get_sample_list(annotations_dir, images_dir):
     :return: A list of dicts containing the modified annotation elements.
     """
     import xmltodict
+    from object_detection.utils import label_map_util
 
     label_map_dict = label_map_util.get_label_map_dict(FLAGS.label_map_path)
     logger.info('Discovered {} labels from {}'.format(len(label_map_dict), FLAGS.label_map_path))
@@ -218,6 +221,13 @@ def main(_):
         '-------------------------------------------------------------------\n'
         .format(__file__, app_start_time.isoformat())
     )
+
+    # Append the research dir to PYTHONPATH. Some components in there must be imported.
+    tf_research_dir = os.getenv('TF_RESEARCH_DIR', '../tensorflow-models/research')
+    if tf_research_dir not in sys.path:
+        sys.path.append(tf_research_dir)
+        sys.path.append(os.path.join(tf_research_dir, 'slim'))
+        print('Using Tensorflow Model Research dir at %s', tf_research_dir)
 
     # location of combined training & evaluation data
     data_dir = FLAGS.data_dir
