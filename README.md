@@ -1,6 +1,25 @@
 # jimmyjohn
 An experiment in Machine Learning object recognition, to detect a Jimmy John's delivery vehicle on a IP surveillance camera.  Tensorflow is the ML framework being used.
 
+# Objectives
+ - Determine if there is any _value_ in detecting custom objects in a fixed camera view.
+ - What is the minimum accuracy needed to make object detection valuable?
+ - How much training data is needed to produce desired accuracy?
+ - What steps are necessary to augment a pre-trained detection model with custom data?
+ - How does model selection affect accuracy and inference speed?
+ - Is it even necessary to use a pre-trained model for custom objects? 
+ 
+# Environment Setup
+For collecting an image set and performing bounding-box annotations, any desktop
+system can be used.  Since detection model training is compute-intensive and I did not have
+access to a local CUDA/GPU machine, I chose to perform training on an Amazon EC2 [p3.2xlarge](https://aws.amazon.com/ec2/instance-types/p3/) instance.
+The specific AMI I selected was the [NVIDIA Volta Deep Learning AMI](https://aws.amazon.com/marketplace/pp/B076K31M1S?qid=1511380876514&sr=0-1&ref_=srh_res_product_title) which is 
+provided by [Nvidia GPU Compute Cloud](http://docs.nvidia.com/ngc/ngc-aws-setup-guide/index.html). This AMI is pre-configured with tensorflow at a cost of $3.305/hr.
+  
+For access to the tensorflow Nvidia NGC docker registry, I created a free account at [Nvidia NGC](https://ngc.nvidia.com/) so I could login
+to their docker registry and pull the latest version into the AMI.  The NGC registry provides docker containers for many
+popular deep learning frameworks.
+
 # The Dataset
 This is what a Jimmy Johns delivery looks like to the camera.
 ![Jimmy Johns Delivery](dataset/images/jimmy_johns/Devtown%20South%20Lot_20171027_131029_1.jpg?raw=true)

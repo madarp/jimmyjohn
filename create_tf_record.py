@@ -50,10 +50,6 @@ import sys
 import random
 import tensorflow as tf
 
-# add your cloned tensorflow/models/research directory as a content root, or to PYTHONPATH.
-# https://github.com/tensorflow/models/tree/master/research
-
-
 flags = tf.app.flags
 flags.DEFINE_string('data_dir', r'dataset', 'Root directory to raw dataset.')
 flags.DEFINE_string('output_dir', r'dataset/tf_records', 'Path to directory to output TFRecords.')
@@ -179,6 +175,8 @@ def get_sample_list(annotations_dir, images_dir):
 
     label_map_dict = label_map_util.get_label_map_dict(FLAGS.label_map_path)
     logger.info('Discovered {} labels from {}'.format(len(label_map_dict), FLAGS.label_map_path))
+    for l in label_map_dict.keys():
+        logger.info('label %s = %d', l, label_map_dict[l])
 
     samples = []
     for filename in os.listdir(annotations_dir):
@@ -201,6 +199,7 @@ def get_sample_list(annotations_dir, images_dir):
                     class_name = obj['name']
                     obj['class_id'] = int(label_map_dict[class_name])
                 samples.append(ann)
+                # Successfully matched a xml annotation to its corresponding image.
                 logger.debug('Matched sample {}: {}'.format(len(samples), filename))
     return samples
 
@@ -222,12 +221,16 @@ def main(_):
         .format(__file__, app_start_time.isoformat())
     )
 
-    # Append the research dir to PYTHONPATH. Some components in there must be imported.
+    # Append the tensorflow-models/research dir to sys.path. Some modules in there must be imported.
     tf_research_dir = os.getenv('TF_RESEARCH_DIR', '../tensorflow-models/research')
+    if not os.path.exists(tf_research_dir):
+        raise NotADirectoryError('Unable to find %s', tf_research_dir)
     if tf_research_dir not in sys.path:
+        logger.info('Adding to sys.path: %s', tf_research_dir)
         sys.path.append(tf_research_dir)
-        sys.path.append(os.path.join(tf_research_dir, 'slim'))
-        print('Using Tensorflow Model Research dir at %s', tf_research_dir)
+        slim_dir = os.path.join(tf_research_dir, 'slim')
+        logger.info('Adding to sys.path: %s', slim_dir)
+        sys.path.append(slim_dir)
 
     # location of combined training & evaluation data
     data_dir = FLAGS.data_dir
