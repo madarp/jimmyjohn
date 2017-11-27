@@ -1,28 +1,10 @@
-# Copyright 2017 The TensorFlow Authors. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ==============================================================================
+#!/usr/bin/env python3
 
-r"""
-Convert the Oxford pet dataset to TFRecord for object_detection.
+"""
+Convert annotated image dataset into TFRecord file format, so it can be used by tensorflow.
+This file is adapted from
 
-See: O. M. Parkhi, A. Vedaldi, A. Zisserman, C. V. Jawahar
-     Cats and Dogs
-     IEEE Conference on Computer Vision and Pattern Recognition, 2012
-     http://www.robots.ox.ac.uk/~vgg/data/pets/
-
-Example usage:
-    ./create_pet_tf_record --data_dir=/home/user/pet --output_dir=/home/user/pet/output
+   https://github.com/tensorflow/models/blob/master/research/object_detection/dataset_tools/create_pet_tf_record.py
 
 The Tensorflow Object Detection API uses Protobufs to configure model and training parameters. Before the framework
 can be used, the Protobuf libraries must be compiled. This should be done by running the following command from the
