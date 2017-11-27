@@ -1,7 +1,8 @@
 # jimmyjohn
-An experiment in Machine Learning object recognition, to detect a Jimmy John's delivery vehicle on a IP surveillance camera.  Tensorflow is the ML framework being used.
+Using the [object_detection API](https://github.com/tensorflow/models/tree/master/research/object_detection) of the [Tensorflow](https://www.tensorflow.org/) machine learning framework, we train a neural network model to detect a Jimmy John's delivery vehicle on a IP surveillance camera.  The model is then exported to run on a [Movidius Neural Compute](https://developer.movidius.com/) device to perform detections on a IP surveillance camera RTSP video stream in realtime. 
 
 # Objectives
+ - Learn the tensorflow object_detection API and training pipeline.
  - Determine if there is any _value_ in detecting custom objects in a fixed camera view.
  - What is the minimum accuracy needed to make object detection valuable?
  - How much training data is needed to produce desired accuracy?
@@ -40,3 +41,8 @@ The script will iterate over the entire images dataset and partition 70% of the 
 # Training the model
 The first model selected for object detection is [ssd_inception_v2_coco](http://download.tensorflow.org/models/object_detection/ssd_inception_v2_coco_2017_11_08.tar.gz) from the tensorflow model zoo.
  
+# References
+These links were helpful to understand and guide me through the experiment.
+ - Sentdex [Introduction and Use - Tensorflow Object Detection API Tutorial](https://pythonprogramming.net/introduction-use-tensorflow-object-detection-api-tutorial/)
+ - Dat Tran [How to train your own Object Detector with TensorFlow’s Object Detector API](https://towardsdatascience.com/how-to-train-your-own-object-detector-with-tensorflows-object-detector-api-bec72ecfe1d9)
+ - O'Reilly [Object detection with TensorFlow](https://www.oreilly.com/ideas/object-detection-with-tensorflow)
