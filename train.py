@@ -19,12 +19,12 @@ def main(_):
         .format(__file__, app_start_time.isoformat())
     )
 
-    # Append the research dir to PYTHONPATH. Some components in there must be imported.
+    # Append the research dir to sys.path. Some components in there must be imported.
     tf_research_dir = os.getenv('TF_RESEARCH_DIR', '../tensorflow-models/research')
     if tf_research_dir not in sys.path:
         sys.path.append(tf_research_dir)
         sys.path.append(os.path.join(tf_research_dir, 'slim'))
-        print('Using Tensorflow Model Research dir at %s', tf_research_dir)
+        print('Using Tensorflow Model Research dir at', tf_research_dir)
 
     import object_detection.train as trainer
     model_dir = os.getenv('TF_MY_MODEL_DIR', 'models')
