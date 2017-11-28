@@ -46,3 +46,4 @@ These links were helpful to understand and guide me through the experiment.
  - Sentdex [Introduction and Use - Tensorflow Object Detection API Tutorial](https://pythonprogramming.net/introduction-use-tensorflow-object-detection-api-tutorial/)
  - Dat Tran [How to train your own Object Detector with TensorFlow’s Object Detector API](https://towardsdatascience.com/how-to-train-your-own-object-detector-with-tensorflows-object-detector-api-bec72ecfe1d9)
  - O'Reilly [Object detection with TensorFlow](https://www.oreilly.com/ideas/object-detection-with-tensorflow)
+ - Movidius [Tensorflow Support](https://movidius.github.io/ncsdk/TensorFlow.html)
