@@ -56,7 +56,9 @@ def main(_):
 
     add_python_paths()
 
-    import object_detection.export_inference_graph as eig
+    from google.protobuf import text_format
+    from object_detection import exporter
+    from object_detection.protos import pipeline_pb2
 
     model_list = os.listdir('models')
     if len(model_list) > 0:
@@ -72,12 +74,30 @@ def main(_):
 
                 # Invoke the exporter directly instead of using tf.app.run, because I don't want their early
                 # sys.exit.  So yes-- calling a protected method.
-                eig.FLAGS._parse_flags()
-                eig.FLAGS.input_type = 'image_tensor'
-                eig.FLAGS.pipeline_config_path = '{}/pipeline.config'.format(train_dir)
-                eig.FLAGS.trained_checkpoint_prefix = ckpt_prefix
-                eig.FLAGS.output_directory = out_dir
-                eig.main(__file__)
+
+                pipeline_config = pipeline_pb2.TrainEvalPipelineConfig()
+                pipeline_config_path = '{}/pipeline.config'.format(train_dir)
+                with tf.gfile.GFile(pipeline_config_path, 'r') as f:
+                    text_format.Merge(f.read(), pipeline_config)
+
+                input_shape = None
+                if input_shape:
+                    input_shape = [
+                        int(dim) if dim != '-1' else None
+                        for dim in input_shape.split(',')
+                    ]
+                else:
+                    input_shape = None
+
+                input_type = 'image_tensor'
+                exporter.export_inference_graph(
+                    input_type,
+                    pipeline_config,
+                    ckpt_prefix,
+                    out_dir,
+                    input_shape
+                )
+
             else:
                 logger.warning('No checkpoints found in ', train_dir)
     else:
